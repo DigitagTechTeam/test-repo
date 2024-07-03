@@ -1,1 +1,16 @@
 #Workflow to validate commits
+
+name: Commit-Checker
+  on: [push, pull_request]
+  
+  jobs:
+    format:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - run: |
+            git config user.name 'DigitagGitBot'
+            git config user.email 'digitagtechteam@gmail.com'
+            git config credential.helper cache
+            echo "Before SHA: " ${{ github.event.before  }}
+            echo "After SHA: " ${{ github.event.after }}
