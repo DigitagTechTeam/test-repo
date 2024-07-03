@@ -19,7 +19,11 @@ jobs:
             query($owner: String!, $name: String!) {
               repository(owner: $owner, name: $name) {
                 issues {
-                  number
+                  edges {
+                    node {
+                      number
+                    }
+                  }
                 }
               }
             }')"
