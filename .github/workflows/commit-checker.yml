@@ -1,5 +1,3 @@
-#Workflow to validate commits
-
 name: Commit-Checker
   on: [push, pull_request]
   
