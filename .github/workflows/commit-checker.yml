@@ -17,14 +17,8 @@ jobs:
       - run: |
           issues="$(gh api graphql -F name=$REPO -F owner=$OWNER -f query='
             query($owner: String!, $name: String!) {
-              repository(owner: $owner, name: $name) {
-                issues {
-                  edges {
-                    node {
-                      number
-                    }
-                  }
-                }
+              issues {
+                name
               }
             }')"
 
