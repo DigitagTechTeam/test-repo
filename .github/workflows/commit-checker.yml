@@ -18,7 +18,7 @@ jobs:
           gh api graphql -F owner=$OWNER -F name=$REPO -f query="
             query($name: String!, $owner: String!) {
               repository(owner: $owner, name: $name) {
-                issues(states:OPEN){
+                issues {
                   totalCount
                 }
               }
