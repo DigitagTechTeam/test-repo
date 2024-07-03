@@ -15,6 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/DigitagTechTeam/test-repo/issues
+          gh api graphql -F owner=$OWNER -F name=$REPO -f query="
+            query($name: String!, $owner: String!) {
+              repository(owner: $owner, name: $name) {
+                issues(states:OPEN){
+                  totalCount
+                }
+              }
+            }"
         env:
+          REPO: ${{ github.repository.name }} 
+          OWNER: ${{ github.repository_owner }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
