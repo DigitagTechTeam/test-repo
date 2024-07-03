@@ -27,5 +27,5 @@ jobs:
           echo $issues
         env:
           OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository_name }}
+          REPO: ${{ github.event.repository.name }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
