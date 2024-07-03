@@ -15,15 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          gh api graphql -F owner=$OWNER -F name=$REPO -f query="
-            query($name:String!, $owner:String!) {
-              repository(owner:$owner, name:$name) {
+          gh api graphql -F owner=$OWNER -f query="
+            query($owner: String!) {
+              repository(owner: $owner) {
                 issues {
                   totalCount
                 }
               }
             }"
-        env:
-          REPO: ${{ github.event.repository.name }} 
+        env: 
           OWNER: ${{ github.repository_owner }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
