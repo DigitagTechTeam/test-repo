@@ -15,14 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          issues="$(gh api graphql -F name=$REPO -F owner=$OWNER -f query='
-            query($owner: String!, $name: String!) {
-              issues {
-                name
-              }
-            }')"
-
-          echo $issues
+          gh issue list -s all -L 100000
         env:
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
