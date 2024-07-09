@@ -4,6 +4,9 @@ jobs:
   validate-commit-messages:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout-repository
+        uses: actions/checkout@v4
+
       - name: get-all-issues
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -14,9 +17,6 @@ jobs:
             echo EOF
           } >> "$GITHUB_ENV"
       
-      - name: checkout-repository
-        uses: actions/checkout@v4
-
       - name: get-pending-commits
         if: ${{ success() }}
         run: |
