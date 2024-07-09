@@ -16,7 +16,7 @@ jobs:
         run: |
           {
             echo "ISSUES<<EOF"
-            gh issue list -s all -L 100000 --json id
+            gh issue list -s all -L 100000 --json id --jq ".[].id"
             echo EOF
           } >> "$GITHUB_ENV"
       
