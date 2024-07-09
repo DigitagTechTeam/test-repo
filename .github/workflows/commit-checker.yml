@@ -2,7 +2,7 @@ name: Validate-Commits
 on: [push]
 jobs:
   validate-commit-messages:
-    runs-on: ubuntu-latest:
+    runs-on: ubuntu-latest
     steps:
       - name: get-all-issues
         env: 
