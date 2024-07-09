@@ -1,32 +1,32 @@
-name: Commit-Checker
-on: [push, pull_request]
+name: Validate-Commits
+on: push
 jobs:
-  get-all-issues:
-    runs-on: ubuntu-latest
+  validate-commit-messages:
+    runs-on: ubuntu-latest:
     steps:
-      - uses: actions/checkout@v4
-      - run: |
+      - name: get-all-issues
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+        {
+          echo "ISSUES<<EOF"
+          gh issue list -s all -L 100000
+          echo EOF
+        } >> "$GITHUB_ENV"
+      
+      - name: get-pending-commits
+        if: ${{ success() }}
+        uses: actions/checkout@v4
+        run: |
           {
-            echo "ISSUES<<EOF"
-            gh issue list -s all -L 100000
+            echo "COMMITS<<EOF"
+            git rev-list ${{ github.event.before }}
             echo EOF
           } >> "$GITHUB_ENV"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  get-unchecked-commits:
-    needs: get-all-issues
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          echo "commits=$(git rev-list ${{ github.event.before  }}^..HEAD)" >> "$GITHUB_ENV"
-  validate-commit-messages:
-    needs: get-unchecked-commits
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
+      
+      - name: validate-messages:
+        if: ${{ success() }}
+        uses: actions/checkout@v4
+        run: |
           echo "$ISSUES"
-          echo "$commits"
-
-
+          echo "$COMMITS"
