@@ -36,4 +36,4 @@ jobs:
           while IFS="" read -r commit
           do
             echo "$commit"
-          done < $COMMITS
+          done <<< "$COMMITS"
