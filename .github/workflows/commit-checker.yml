@@ -16,7 +16,7 @@ jobs:
         run: |
           {
             echo "ISSUES<<EOF"
-            gh issue list -s all -L 100000 | awk "{print $1}"
+            gh issue list -s all -L 100000 | gawk "{print $1}"
             echo EOF
           } >> "$GITHUB_ENV"
       
