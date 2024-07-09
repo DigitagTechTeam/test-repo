@@ -32,8 +32,9 @@ jobs:
       - name: validate-messages
         if: ${{ success() }}
         run: |
-          echo "Commits: $COMMITS"
           while IFS="" read -r commit
           do
-            echo "$commit"
+            if [ $(echo $ISSUES | grep -c "$commit") -eq 0 ]
+              echo "Failure"
+            fi
           done <<< "$COMMITS"
