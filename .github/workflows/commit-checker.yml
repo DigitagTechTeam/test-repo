@@ -1,23 +1,28 @@
 name: Commit-Checker
 on: [push, pull_request]
 jobs:
-  format:
+  get-all-issues:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: |
-          git config user.name 'DigitagGitBot'
-          git config user.email 'digitagtechteam@gmail.com'
-          git config credential.helper cache
-          echo "Before SHA: " ${{ github.event.before  }}
-          echo "After SHA: " ${{ github.event.after }}
-  validateIssue:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          gh issue list -s all -L 100000
+          echo "issues=$(gh issue list -s all -L 100000)" >> "$GITHUB_ENV"
         env:
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  get-unchecked-commits:
+    needs: get-all-issues
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "commits=$(git rev-list ${{ github.event.before  }}^..HEAD)" >> "$GITHUB_ENV"
+  validate-commit-messages:
+    needs: get-unchecked-commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "$issues"
+          echo "$commits"
+
+
