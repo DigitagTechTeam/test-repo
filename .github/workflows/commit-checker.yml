@@ -16,7 +16,7 @@ jobs:
         run: |
           {
             echo "ISSUES<<EOF"
-            gh issue list -s all -L 100000 --json id --jq ".[].id"
+            gh issue list -s all -L 100000 --json number --jq ".[].number"
             echo EOF
           } >> "$GITHUB_ENV"
       
@@ -32,5 +32,8 @@ jobs:
       - name: validate-messages
         if: ${{ success() }}
         run: |
-          echo "$ISSUES"
-          echo "$COMMITS"
+          echo "Commits: $COMMITS"
+          while IFS="" read -r commit
+          do
+            echo "$commit"
+          done < $COMMITS
