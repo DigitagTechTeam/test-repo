@@ -16,7 +16,8 @@ jobs:
       - name: get-pending-commits
         if: ${{ success() }}
         run: |
-          git log -n 10
+          BRANCH_REF = ${{ github.event.ref }}
+          git checkout ${BRANCH_REF##*/}
           git rev-list ${{ github.event.before }}^..HEAD
           echo "COMMITS=$(git rev-list ${{ github.event.before }}^..HEAD)" >> "$GITHUB_ENV"
       
