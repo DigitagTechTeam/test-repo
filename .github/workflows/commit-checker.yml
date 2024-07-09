@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: checkout-repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: get-all-issues
         env: 
@@ -16,7 +18,7 @@ jobs:
       - name: get-pending-commits
         if: ${{ success() }}
         run: |
-          BRANCH_REF = ${{ github.event.ref }}
+          BRANCH_REF=${{ github.event.ref }}
           git checkout ${BRANCH_REF##*/}
           git rev-list ${{ github.event.before }}^..HEAD
           echo "COMMITS=$(git rev-list ${{ github.event.before }}^..HEAD)" >> "$GITHUB_ENV"
