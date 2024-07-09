@@ -8,11 +8,11 @@ jobs:
         env: 
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-        {
-          echo "ISSUES<<EOF"
-          gh issue list -s all -L 100000
-          echo EOF
-        } >> "$GITHUB_ENV"
+          {
+            echo "ISSUES<<EOF"
+            gh issue list -s all -L 100000
+            echo EOF
+          } >> "$GITHUB_ENV"
       
       - name: get-pending-commits
         if: ${{ success() }}
