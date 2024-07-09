@@ -24,7 +24,7 @@ jobs:
             echo EOF
           } >> "$GITHUB_ENV"
       
-      - name: validate-messages:
+      - name: validate-messages
         if: ${{ success() }}
         uses: actions/checkout@v4
         run: |
