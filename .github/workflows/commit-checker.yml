@@ -14,9 +14,11 @@ jobs:
             echo EOF
           } >> "$GITHUB_ENV"
       
+      - name: checkout-repository
+        uses: actions/checkout@v4
+
       - name: get-pending-commits
         if: ${{ success() }}
-        uses: actions/checkout@v4
         run: |
           {
             echo "COMMITS<<EOF"
@@ -26,7 +28,6 @@ jobs:
       
       - name: validate-messages
         if: ${{ success() }}
-        uses: actions/checkout@v4
         run: |
           echo "$ISSUES"
           echo "$COMMITS"
