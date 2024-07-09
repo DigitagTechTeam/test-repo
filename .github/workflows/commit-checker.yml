@@ -34,7 +34,7 @@ jobs:
         run: |
           while IFS="" read -r commit
           do
-            if [ $(echo $ISSUES | grep -c "$commit") -eq 0 ]
+            if [ $(echo $ISSUES | grep -c "$commit") -eq 0 ]; then
               echo "Failure"
             fi
           done <<< "$COMMITS"
