@@ -1,5 +1,5 @@
 name: Validate-Commits
-on: push
+on: [push]
 jobs:
   validate-commit-messages:
     runs-on: ubuntu-latest:
