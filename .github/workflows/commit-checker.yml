@@ -1,6 +1,20 @@
 name: Validate-Commits
 on: [push]
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: run-linter
+        run: |
+          lintResult=$(./ktlint --reporter=plain-summary | tail -2)
+          echo "$lintResult"
+
+
   validate-commit-messages:
     runs-on: ubuntu-latest
     steps:
