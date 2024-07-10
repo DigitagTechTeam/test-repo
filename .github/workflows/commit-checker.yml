@@ -70,7 +70,7 @@ jobs:
       - name: run-auto-formatter
         if: ${{ success() }}
         run: |
-          sh -c "./ktlint -F"
+          ./ktlint -F 2> /dev/null
       
       - name: save-changes
         if: ${{ success() }}
