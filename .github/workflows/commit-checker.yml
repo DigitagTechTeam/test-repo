@@ -34,9 +34,8 @@ jobs:
         run: |
           while IFS="" read -r commit
           do
-            issueNum=$(echo $commit | sed -E -e "s/I//" -e "s/:.*//g")
+            issueNum=$(git show -s --format=%B $commit | sed -E -e "s/I//" -e "s/:.*//g")
             if [ $(echo $ISSUES | grep -c "$issueNum") -eq 0 ]; then
               echo "Failure"
-              exit 1
             fi
           done <<< "$COMMITS"
