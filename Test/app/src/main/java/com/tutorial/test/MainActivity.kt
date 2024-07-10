@@ -94,7 +94,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun formatterTest() {
-        if (1 == 1) { val t = 1
+        if (1 == 1) {
+            val t = 1
         }
     }
 }
