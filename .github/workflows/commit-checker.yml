@@ -70,7 +70,9 @@ jobs:
       - name: run-auto-formatter
         if: ${{ success() }}
         run: |
-          ./ktlint -F 2> /dev/null
+          summary=$(./ktlint -F 2> /dev/null)
+          echo "Format Summary:"
+          echo "$summary"
       
       - name: save-changes
         if: ${{ success() }}
