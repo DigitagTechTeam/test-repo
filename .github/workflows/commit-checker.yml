@@ -10,6 +10,7 @@ jobs:
           fetch-depth: 0
       
       - name: run-linter
+        if: ${{ success() }}
         run: |
           lintResult=$(./ktlint --reporter=plain-summary | tail -2)
           echo "$lintResult"
@@ -55,3 +56,27 @@ jobs:
               exit 1
             fi
           done <<< "$COMMITS"
+    
+  format:
+    runs-on: ubuntu-latest
+    needs: validate-commit-message
+    if: ${{ always() }}
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+      
+      - name: run-auto-formatter
+        if: ${{ success() }}
+        run: |
+          ./ktlint -F
+      
+      - name: save-changes
+        if: ${{ success() }}
+        run: |
+          git config user.name DigitagRepoBot
+          git config user.email digitagtechteam@gmail.com
+          git commit -am "Autoformat"
+          git reset --soft HEAD~2
+          git commit -m "$(git show --format=%B HEAD@{2})"
