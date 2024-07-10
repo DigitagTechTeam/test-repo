@@ -78,6 +78,4 @@ jobs:
           git config user.name DigitagRepoBot
           git config user.email digitagtechteam@gmail.com
           git commit -am "Autoformat"
-          git reset --soft HEAD~2
-          git commit -m "$(git show --format=%B HEAD@{2})"
-          git push --force-with-lease
+          git push
