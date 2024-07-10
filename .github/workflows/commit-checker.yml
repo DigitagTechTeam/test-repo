@@ -70,7 +70,7 @@ jobs:
       - name: run-auto-formatter
         if: ${{ success() }}
         run: |
-          ./ktlint -F
+          sh -c "./ktlint -F"
       
       - name: save-changes
         if: ${{ success() }}
@@ -80,3 +80,4 @@ jobs:
           git commit -am "Autoformat"
           git reset --soft HEAD~2
           git commit -m "$(git show --format=%B HEAD@{2})"
+          git push --force-with-lease
