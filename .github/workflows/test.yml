@@ -27,8 +27,8 @@ jobs:
       
       - name: build
         run: |
-          ./Test/gradlew --no-daemon build
+          ./gradlew --no-daemon build
       
       - name: run-tests
         run: |
-          ./Test/gradlew -d test
+          ./gradlew -d test
