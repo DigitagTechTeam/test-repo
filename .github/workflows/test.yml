@@ -25,10 +25,6 @@ jobs:
       - name: install-android-sdk
         uses: android-actions/setup-android@v3
       
-      - name: build
-        run: |
-          ./gradlew --no-daemon build
-      
       - name: run-tests
         run: |
           ./gradlew -d test
