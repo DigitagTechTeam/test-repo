@@ -15,13 +15,20 @@ jobs:
           java-version: "17"
           distribution: "temurin"
         
-      - name: setup-android-sdk
+      - name: install-gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          build-scan-publish: true
+          build-scan-terms-of-use-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-use-agree: "yes"
+
+      - name: install-android-sdk
         uses: android-actions/setup-android@v3
       
       - name: build
         run: |
-          source Test/gradlew --no-daemon build
+          ./Test/gradlew --no-daemon build
       
       - name: run-tests
         run: |
-          source Test/gradlew -d test
+          ./Test/gradlew -d test
