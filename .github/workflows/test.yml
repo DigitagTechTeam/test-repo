@@ -1,4 +1,4 @@
-name: Validate-Commits
+name: Validate-Tests
 on: [push]
 jobs:
   lint:
@@ -13,14 +13,15 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: "17"
+          distribution: "temurin"
         
       - name: setup-android-sdk
         uses: android-actions/setup-android@v3
       
       - name: build
         run: |
-          ./gradlew --no-daemon build
+          Test/gradlew --no-daemon build
       
       - name: test
         run: |
-          ./gradlew -d test
+          Test/gradlew -d test
