@@ -1,7 +1,7 @@
 name: Validate-Tests
 on: [push]
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: checkout-repository
@@ -20,8 +20,8 @@ jobs:
       
       - name: build
         run: |
-          Test/gradlew --no-daemon build
+          source Test/gradlew --no-daemon build
       
-      - name: test
+      - name: run-tests
         run: |
-          Test/gradlew -d test
+          source Test/gradlew -d test
