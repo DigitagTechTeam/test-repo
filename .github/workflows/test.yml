@@ -1,0 +1,26 @@
+name: Validate-Commits
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: install-jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+        
+      - name: setup-android-sdk
+        uses: android-actions/setup-android@v3
+      
+      - name: build
+        run: |
+          ./gradlew --no-daemon build
+      
+      - name: test
+        run: |
+          ./gradlew -d test
