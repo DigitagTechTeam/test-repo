@@ -27,4 +27,4 @@ jobs:
       
       - name: run-tests
         run: |
-          ./gradlew -d test
+          ./gradlew test
